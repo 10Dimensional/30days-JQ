@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>
+            
+        </title>
+        <link rel="stylesheet" href="day.css">
+        <style>
+            .emphasis {
+                font-weight: bold;
+            }
+            
+            ul.emphasis > li {
+                color: red;
+            } /* Same thing as script, LESSON 2*/
+        </style>
+        
+        <!--<script>
+            // $('li:first-child').addClass('emphasis'); //This loads before the DOM, but won't work.
+            
+            $(function () {
+                $('li:first-child').addClass('emphasis');
+            }) //This is shorthand for $(document).ready();
+            
+            /*$(document).ready( function () {
+                $('li:first-child').addClass('emphasis'); //This works because the DOM is READY.
+            });*/
+            
+            //Lesson 2
+        </script>-->
+    </head>
+    <body>
+        
+        <!--<div class="container">
+            <h1>Welcome to My Website</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eismod.</p>
+            <ul class="emphasis">
+                <li>Hello</li>
+                <li>Hello2</li>
+                <li>Hello3</li>
+                <li>lol</li>
+                <li>LOLOL</li>
+                <li>
+                    <ul>
+                        <li>A list in a list??</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>  LESSON 1,2,3 -->
+        
+        <!--<h1>My Website</h1>
+        
+        <button data-file="day">Day</button>
+        <button data-file="night">Night</button>  LESSON 4  -->
+        
+        
+        <script type="text/javascript" src="../../jquery-1.11.3.min.js"></script>
+        
+        <!--<script>
+            $('ul li').addClass("emphasis");
+            console.log(lis);
+        </script>
+        //Lesson 1         
+        --> 
+        
+        <!--<script>
+            $('ul.emphasis').children('li').css("color", "red"); //Looks for immeditae chilidren of parent "emphasis"
+            $('ul.emphasis').children('li').first().css("color", "red"); //First li  is red
+            $('ul.emphasis').children('li:nth-child(2)').text("this is jquery!"); //Targets second list item
+            $('ul.emphasis').children('li').eq(0).text("whoa"); //Targets 1st list item because li's are stored in array
+            $('ul.emphasis').children('li').eq(3).next().text("HAHAHAHA"); //Targets next li after the fourth
+            
+            $('ul.emphasis').children('li')
+                .eq(3)
+                .prev.text("some shit"); //You can use this notation to chain as well
+                
+            $('li').parent().removeClass("emphasis"); //removes "emphasis from DIRECT parent ul"
+            $('li').parents().removeClass("container"); /*removes "container" from div, won't work with parent()*/
+            $('li').closest("container"); //Looks for CLOSEST element with this class and STOPS, parents() selects ALL elements with class
+            //Lesson 2,3
+        </script>-->
+        
+        <!--<script type="text/javascript">
+            (function () {
+                var link = $('link'); //savinf reference to link attr, so we don't have to keep jumping into DOM
+                $('button').on("click", function () {
+                    var uls = $('ul'); //get in the habit of saving elements in "cached" variables
+                    
+                    /*uls.clicked();*/ //referencing initial ul find
+                    
+                    /*if ($(this).innerHTML/*html/text*/ /*!= "Day") {*/
+                        /*$('link').attr("href", "night.css");*/ //loading other stylesheet
+                   /* }*/
+                   
+                   //OR
+                   
+                   /*var stylesheet = $(this).text().toLowerCase();
+                   
+                   $('link').attr("href", stylesheet + ".css");*/
+                   
+                   //OR
+                   
+                   var $this = $(this), //caching "this"
+                       stylesheet = $this.data('file'); //Retrieves HTML5 data ttribute of buttons
+                       //Good to use one var statement for several variables, much cleaner
+                   
+                   link.attr("href", stylesheet + ".css");
+                   
+                   $this
+                        .siblings('button') //refers to all other BUTTONS on THIS level
+                            .removeAttr("disabled")
+                            .end()
+                        .attr('disabled', "disabled"); //if it's already day/night, can't click its button
+                       
+                   
+                });
+            })(); //Will execute immediately, and is LOCAL only
+            
+            
+        </script> LESSON 4 -->
+    </body>
+</html>

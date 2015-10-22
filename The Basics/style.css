@@ -1,0 +1,32 @@
+body {
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+dl {
+    
+}
+
+dd {
+    margin: 0;
+    padding: 1em;
+}
+
+dt {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 2em;
+    background: #e3e3e3;
+    border-bottom: 1px solid #c5c5c5;
+    border-bottom: 1px solid white;
+}
+
+dt::first-of-type {
+    border-top: 0;
+}
+
+dt::last-of-type {
+    border-bottom: 0;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8>
+        <title>jQuery Events 201</title>
+        <link rel="stylesheet"  href="style.css">
+    </head>
+    <body>
+        <dl>
+            <dt>What are your hours?</dt>
+            <dd>We are open 24/7.</dd>
+            <dt>What are your hours?</dt>
+            <dd>We are open 24/7.</dd>
+            <dt>What are your hours?</dt>
+            <dd>We are open 24/7.</dd>
+            <dt>What are your hours?</dt>
+            <dd>We are open 24/7.</dd>
+            <dt>What are your hours?</dt>
+            <dd>We are open 24/7.</dd>
+        </dl>
+    </body>
+</html>
+
+<script type="text/javascript" src="../../jquery-1.11.3.min.js"></script>
+
+<script>
+    (function () {
+        
+        $('dd').filter(':nth-child(n+4)').hide(); //select every dd after the 4th child of dl
+        
+        $('dl').on("click", "dt", function () { //prvents a listener from being attached to multiple dd elements, which would hinder performance
+            $(this).next()
+                .slideDown()
+                .siblings('dd')
+                    .slideUp(200);
+        });
+    })();
+</script>
