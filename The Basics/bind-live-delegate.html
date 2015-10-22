@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Bind...Live...Delegate...On...Dang That's Confusing</title>
+    </head>
+    <body>
+        
+        <h2>Click Me</h2>
+        
+        <script type="text/javascript" src="../../jquery-1.11.3.min.js"></script>
+        
+        <script>
+            
+            (function () {
+                
+               /* var h2 = $('h2');
+                
+                h2.bind("click", function() { //same thing is "on", but also deprecated
+                   var cloned = $(this).clone(true); //retains event handlers
+                   cloned.appendTo("body");
+                });*/
+                
+                /*var h2 = $('h2');
+                
+                $(h2, $('container')[0]changing context)/*.live("click", function() {*/ //attaches an events handler to the DOCUMENT, and then detect if the element clicked was an h2, deprecated though
+                  /* var cloned = $(this).clone(true); //retains event handlers
+                   cloned.appendTo("body");
+                });
+                */
+                
+                /*var h2 = $('h2');
+                
+                $("div.container").delegate("click","h2" ,function() { //ONLY works within its context, but also deprecateddddd
+                   var cloned = $(this).clone(true); //retains event handlers
+                   cloned.appendTo("container");
+                });*/
+                
+                var h2 = $('h2');
+                
+                h2.on("click", function() { //best practice, on method is most modern and all above just points to "on" method in jQuery source
+                   var cloned = $(this).clone(true); //retains event handlers
+                   cloned.appendTo("body");
+                });
+                
+                 
+            })();
+            
+        </script>
+        
+    </body>
+</html>
