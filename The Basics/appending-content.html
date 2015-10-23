@@ -1,0 +1,81 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <title>Appending Content</title>
+        
+        <style>
+            article {
+                width: 600px;
+                margin: 0 auto;
+            }
+        
+            blockquote.callout {
+                float: right;
+                background: grey;
+                font-size: 2em;
+                width: 25%;
+            }
+        </style>
+    </head>
+    <body>
+        <article>
+            <h1>My Awesome Post</h1>
+            <span class="callout"><p>Lorem ipsum dolor set amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></span>
+            <p>Lorem ipsum dolor set amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            
+            <span class="callout"><p>Lorem ipsum dolor set amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></span>
+            <p>Lorem ipsum dolor set amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            
+            <span class="callout"><p>Lorem ipsum dolor set amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></span>
+            <p>Lorem ipsum dolor set amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </article>
+        
+        <script type="text/javascript" src="../../jquery-1.11.3.min.js"></script>
+        <script>
+            (function() {
+               /*$('article').append("Hello from js"); //targeting element notation
+               
+               $('article').prepend("Hello from js");
+               
+               $('h1').after("Hello from js");
+               
+               $('p').first().before("Hello from js");
+               
+               
+               $('<h2></h2>', { text: "blah", class: "className" }).appendTo("p"); //creating element notation
+               
+               $('<h2></h2>', { text: "blah", class: "className" }).prependTo("p");*/
+               
+               /*$('<h2></h2>', { text: "blah", class: "className" }).insertAfter("h1");*/
+               
+               /*$('<h2></h2>', { text: "blah", class: "className" }).insertBefore("h1");*/
+               
+               
+               /*$('h1').appendTo('article'); //this moves the h1 to the bottom of "article" because it already exists
+               
+               $('p').after( $('h1') ); //grabs a "collection" of p elements, or every one on the page--which will attach the h1 after EVERY SINGLE one of them
+               
+               $('p').eq(0).after( $('h1') ); //only adds the h1 to the first p
+               
+               $('p').eq(0).after( function () {
+                   return $(this).prev();
+               });*/ //can also pass a function
+               
+               
+               var co = $('article').find('span.callout').each(function() {
+                   console.log("hatred");
+            		var $this = $(this);
+            		
+            		$('<blockquote></blockquote>', {
+            			class: 'co',
+            			text: $this.text()
+            		}).prependTo( $this.closest('p'));
+            		
+            	});
+                
+            })();
+        </script>
+    </body>
+</html>
