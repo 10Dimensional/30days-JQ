@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+     <head>
+         <meta charset=utf-8>
+         <title>Custom Effect Methods</title>
+         <style></style>
+     </head>   
+     <body>
+         <h1>Click me</h1>
+        <div class="content">
+            <p>Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.
+
+Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit. </p>
+            
+            <p>Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.
+
+Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit. </p>
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+            
+        <script>
+            
+            jQuery.fn.flash = function(speed, easing, callback) {
+                $(this).slideDown(1000, function() {
+                    console.log("hi there"); //callbacks make it so any extended functions of the custom effect won't run until after the effect has completed
+                }); 
+            };
+            
+            var content = $('div.content').hide(); //add hide to variable because efficiency
+            
+            $('h1').on('click', function() {
+               content.flash(); //using content variable in place of div.content
+            });
+                
+        </script>
+     </body>
+</html>
