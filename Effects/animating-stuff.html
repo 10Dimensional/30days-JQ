@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+     <head>
+         <meta charset=utf-8>
+         <title>Animate</title>
+         <style>
+             .box {
+                 width: 400px;
+                 background: red;
+                 padding: 2em;
+                 position: relative;
+             }
+         </style>
+     </head>   
+     <body>
+         <div class="box">
+             <h2>Some Content Here</h2>
+             <p>
+                Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.
+
+                Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit. 
+             </p>
+         </div>
+         <button>Center</button>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+            
+        <script>
+        
+            /*(function() {
+                var box = $('div.box'),
+                    fontSize = parseInt(box.css('font-size')); //converts pixel size string into int
+            
+            $('button').on("click", function() {
+               box.css("font-size", fontSize += 5); //adding 5px to the varibale and assinging it back to the variable 
+            });
+            })();*/ //Old way
+            
+            /*(function() {
+                var box = $('div.box');
+                
+                $('button').on("click", function() {
+                   box.animate({*/ //pass an object when you have to make multiple css changes
+                       /*'fontSize': '+=5',
+                       'width': "+=300"
+                   }, 2000 /*duration*/ //, /*'swing'*/ /*easing*/ //, /*function() {}*/ /*callback on completion*/ //); //adding 5px to the varibale and assinging it back to the variable 
+                /*});
+            })();*/ //Best way
+            
+            
+            /*------------------Second Animate Method----------------------*/
+            
+           /* (function (){
+                 $('button').on("click", function() {
+                   box.animate({ //pass an object when you have to make multiple css changes
+                       'fontSize': '+=5'
+                    },
+                    {
+                        duration:500,
+                        complete: function () {
+                            console.log("completed");   
+                        }
+                    },
+                    {
+                        step: function () { //occurs for every step/frame of the animation
+                            console.log(this); 
+                        }
+                    });  
+                 });;
+            })();*/
+            
+            /*------------------Third Animate Method----------------------*/
+            
+           /* (function (){
+                var box = $('div.box');
+                
+                 $('button').on("click", function() {
+                   box
+                       .animate({ //you can stack animations
+                           'fontSize': '+=5'
+                        }, { duration: 500 })
+                        .animate({ 'fontSize': '+=10' }, 3000); //waits for first animation to complete
+                
+                 });
+            })();
+            
+            /*------------------Fourth Animate Method (Simultaneous Animation)----------------------*/
+            
+           /* (function (){
+                var box = $('div.box');
+                
+                 $('button').on("click", function() {
+                   box
+                       .animate({ //you can stack animations
+                           'fontSize': '+=5'
+                        }, { duration: 500 })
+                        .animate({ 'fontSize': '+=10' }, {duration: 3000, queue: false}); //makes it so animations happen at the same time
+                
+                 });
+            })();*/
+            
+            /*------------------Mini Proj - Centers DOM object----------------------*/
+           
+           (function() {
+                var box = $('div.box'),
+                w = $(window).width() / 2 - box.outerWidth() / 2, //takes border, padding, and optionally margin into account
+                h = $(window).height() / 2 - box.outerHeight() / 2;
+                
+                $('button').on('click', function() {
+                   box.animate({
+                    'left': w,
+                    'position': 'absolute'
+                   })
+                   .animate({
+                       'top': h
+                   });
+                });
+           })();
+            
+        </script>
+     </body>
+</html>
