@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8>
+        <title>Custom Events</title>
+    </head>
+    <body>
+        
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.71/jquery.min.js"></script>
+        
+        <script>
+            (function( $ ) { //makes sure $ always refers to jquery
+                var o = $( {} );
+                //pub/sub model
+                $.each({
+                    trigger: 'publish',
+                    on: 'subscribe',
+                    off: 'unsubscribe'
+                }, function(key, val) {
+                    jQuery[val] = function() {
+                        o[key].apply( o, arguments ); //calling function for alias
+                    };
+                });
+            })(jQuery);
+            
+            $.getJSON('http://search.twitter.com/search.json?q=dogs&callback=?', function(data) {
+               $.publish('twitter/results', results); //publishing results on condition
+            });
+            
+            $.subscribe('twitter/results', function(results) { //subscribing to results
+                //stuff happens
+            });
+            
+            /*$('body').on('app/clickityclack', function() {
+                //does something after user clicks
+            });
+            
+            $('body').trigger('app/clickityclack', function() {
+                console.log('clicked');
+            });*/ //causes click on object, then logs the click without having the user do anything
+            
+            /*$.getJSON('http://search.twitter.com/search.json?q=dogs&callback=?', function(data) {
+                console.log(data);
+                $(document).trigger('twitter/results', results); //publish
+            });
+            
+            $(document).on('twitter/results', function(e, results){ //subscribe
+                console.log(results);
+            });*/
+            
+        </script>
+    </body>
+</html>
