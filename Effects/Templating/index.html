@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- Good example of how angular/templating engines work and why they need jQuery -->
+<html>
+    <head>
+        <meta charset=utf-8>
+        <title>Q&A</title>
+    </head>
+    <body>
+        <a href="http://tutsplus.com" class="myClass ">Click Me</a>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        
+        <script id=blogTemplate type=tuts/template>
+            <h2>{{title}}</h2>
+            <img src={{thumbnail}} alt={{title}}>
+        </script>
+        
+        <script>
+            (function() {
+                var content = [
+                {
+                    title: "My awesome blog post",
+                    thumbnail: 'https://placekitten.com/g/200/300'
+                }, 
+                {
+                    title: "My second awesome blog post",
+                    thumbnail: 'https://placekitten.com/g/200/300'
+                }];
+                
+                var template = $.trim($('#blogTemplate').html()); //want to retrieve html only and trims unncessary whitespace
+                var temp = "";
+                
+                $.each(content, function(index, obj) { //will return array index and object contained
+                    temp += 
+                        template.replace(/{{title}}/ig, obj.title)
+                                .replace(/{{thumbnail}}/, obj.thumbnail); //best to alter variable in loops, not DOM
+                                
+                    console.log(temp);
+                    $('body').append(temp);
+                });
+            })();
+        </script>
+    </body>
+</html>
