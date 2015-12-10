@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8>
+        <title>Grep Ish</title>
+    </head>
+    <body>
+        
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        
+        <script>
+            var array = [1,2,3,4,5,6,7,8,9,10];
+            
+            var array2 = [{
+                name: "Sloane",
+                phone: "123456789"
+            },
+            {
+                name: "Tina",
+                phone: "123456789"
+            },
+            {
+                name: "Sloane",
+                phone: "123456789"
+            }];
+            
+            array = $.grep(array, function(val, index) { //inv (inverse) returns the opposite of your parameters, or everything that DOESN'T = your test
+                return val > 5;
+            }, true);
+            
+            array2 = $.grep(array2, function(obj, index) {
+                return obj.name === "Sloane";
+            });
+            
+            console.log(array2);
+        </script>
+    </body>
+</html>
