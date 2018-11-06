@@ -98,7 +98,7 @@ metadata:
 ---
 apiVersion: v1
 data:
-  admin-password: aGVYaGJXQlE4NEdxRjdyam9KRWxGa2szbmhnSWV2R2pOTldYM3ZPQg==
+  admin-password: TXNHcEcwaFBNQkNqMWhSNWd6M3U2SXJDN3BvZzczRHR0Rld6WkZRTQ==
   admin-user: YWRtaW4=
   ldap-toml: ""
 kind: Secret
@@ -136,7 +136,7 @@ kind: Deployment
 metadata:
   labels:
     app: grafana
-    chart: grafana-1.17.4
+    chart: grafana-1.17.5
     heritage: Tiller
     release: grafana
   name: grafana
