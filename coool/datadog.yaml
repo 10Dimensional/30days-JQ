@@ -261,7 +261,7 @@ kind: Deployment
 metadata:
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.9.0
+    chart: kube-state-metrics-0.9.1
     heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
