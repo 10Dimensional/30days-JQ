@@ -3,7 +3,7 @@ kind: ServiceAccount
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.10.1
     heritage: Tiller
     release: datadog
   name: datadog-datadog
@@ -17,43 +17,6 @@ metadata:
     heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  labels:
-    app: datadog-datadog
-    chart: datadog-1.10.0
-    heritage: Tiller
-    release: datadog
-  name: datadog-datadog
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - services
-  - events
-  - endpoints
-  - pods
-  - nodes
-  - componentstatuses
-  verbs:
-  - get
-  - list
-  - watch
-- nonResourceURLs:
-  - /version
-  - /healthz
-  verbs:
-  - get
-- apiGroups:
-  - ""
-  resources:
-  - nodes/metrics
-  - nodes/spec
-  - nodes/proxy
-  verbs:
-  - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -186,11 +149,48 @@ rules:
   - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: datadog-datadog
+    chart: datadog-1.10.1
+    heritage: Tiller
+    release: datadog
+  name: datadog-datadog
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - events
+  - endpoints
+  - pods
+  - nodes
+  - componentstatuses
+  verbs:
+  - get
+  - list
+  - watch
+- nonResourceURLs:
+  - /version
+  - /healthz
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - nodes/metrics
+  - nodes/spec
+  - nodes/proxy
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.10.1
     heritage: Tiller
     release: datadog
   name: datadog-datadog
@@ -228,7 +228,7 @@ kind: Secret
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.10.1
     heritage: Tiller
     release: datadog
   name: datadog-datadog
