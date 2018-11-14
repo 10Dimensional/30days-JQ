@@ -3,7 +3,7 @@ kind: ServiceAccount
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.10.2
     heritage: Tiller
     release: datadog
   name: datadog-datadog
@@ -23,7 +23,7 @@ kind: ClusterRole
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.10.2
     heritage: Tiller
     release: datadog
   name: datadog-datadog
@@ -190,7 +190,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.10.2
     heritage: Tiller
     release: datadog
   name: datadog-datadog
@@ -228,7 +228,7 @@ kind: Secret
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.10.2
     heritage: Tiller
     release: datadog
   name: datadog-datadog
