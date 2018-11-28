@@ -3,7 +3,7 @@ kind: ServiceAccount
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.11.2
     heritage: Tiller
     release: datadog
   name: datadog-datadog
@@ -13,7 +13,7 @@ kind: ServiceAccount
 metadata:
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.9.0
+    chart: kube-state-metrics-0.11.0
     heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
@@ -23,7 +23,7 @@ kind: ClusterRole
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.11.2
     heritage: Tiller
     release: datadog
   name: datadog-datadog
@@ -60,7 +60,7 @@ kind: ClusterRole
 metadata:
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.9.0
+    chart: kube-state-metrics-0.11.0
     heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
@@ -190,7 +190,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.11.2
     heritage: Tiller
     release: datadog
   name: datadog-datadog
@@ -208,7 +208,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.9.0
+    chart: kube-state-metrics-0.11.0
     heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
@@ -228,7 +228,7 @@ kind: Secret
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.10.0
+    chart: datadog-1.11.2
     heritage: Tiller
     release: datadog
   name: datadog-datadog
@@ -241,7 +241,7 @@ metadata:
     prometheus.io/scrape: "true"
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.9.0
+    chart: kube-state-metrics-0.11.0
     heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
@@ -304,4 +304,7 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 5
         resources: null
+      securityContext:
+        fsGroup: 65534
+        runAsUser: 65534
       serviceAccountName: datadog-kube-state-metrics
