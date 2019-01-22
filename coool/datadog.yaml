@@ -3,8 +3,6 @@ kind: ServiceAccount
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.16.0
-    heritage: Tiller
     release: datadog
   name: datadog-datadog
 ---
@@ -13,8 +11,6 @@ kind: ServiceAccount
 metadata:
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.11.0
-    heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
 ---
@@ -23,8 +19,6 @@ kind: ClusterRole
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.16.0
-    heritage: Tiller
     release: datadog
   name: datadog-datadog
 rules:
@@ -60,8 +54,6 @@ kind: ClusterRole
 metadata:
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.11.0
-    heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
 rules:
@@ -190,8 +182,6 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.16.0
-    heritage: Tiller
     release: datadog
   name: datadog-datadog
 roleRef:
@@ -208,8 +198,6 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.11.0
-    heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
 roleRef:
@@ -228,8 +216,6 @@ kind: Secret
 metadata:
   labels:
     app: datadog-datadog
-    chart: datadog-1.16.0
-    heritage: Tiller
     release: datadog
   name: datadog-datadog
 type: Opaque
@@ -241,8 +227,6 @@ metadata:
     prometheus.io/scrape: "true"
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.11.0
-    heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
 spec:
