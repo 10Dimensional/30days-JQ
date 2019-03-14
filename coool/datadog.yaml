@@ -335,7 +335,7 @@ spec:
               fieldPath: status.hostIP
         - name: DD_HEALTH_PORT
           value: "5555"
-        image: datadog/agent:6.9.0
+        image: datadog/agent:6.10.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 6
