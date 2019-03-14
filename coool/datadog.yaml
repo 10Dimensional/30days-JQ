@@ -2,31 +2,25 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app: datadog-datadog
-    chart: datadog-1.10.0
-    heritage: Tiller
+    app: kube-state-metrics
     release: datadog
-  name: datadog-datadog
+  name: datadog-kube-state-metrics
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app: kube-state-metrics
-    chart: kube-state-metrics-0.9.0
-    heritage: Tiller
+    app: datadog
     release: datadog
-  name: datadog-kube-state-metrics
+  name: datadog
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app: datadog-datadog
-    chart: datadog-1.10.0
-    heritage: Tiller
+    app: datadog
     release: datadog
-  name: datadog-datadog
+  name: datadog
 rules:
 - apiGroups:
   - ""
@@ -41,6 +35,13 @@ rules:
   - get
   - list
   - watch
+- apiGroups:
+  - quota.openshift.io
+  resources:
+  - clusterresourcequotas
+  verbs:
+  - get
+  - list
 - nonResourceURLs:
   - /version
   - /healthz
@@ -60,8 +61,6 @@ kind: ClusterRole
 metadata:
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.9.0
-    heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
 rules:
@@ -189,18 +188,16 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    app: datadog-datadog
-    chart: datadog-1.10.0
-    heritage: Tiller
+    app: datadog
     release: datadog
-  name: datadog-datadog
+  name: datadog
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: datadog-datadog
+  name: datadog
 subjects:
 - kind: ServiceAccount
-  name: datadog-datadog
+  name: datadog
   namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
@@ -208,8 +205,6 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.9.0
-    heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
 roleRef:
@@ -223,15 +218,13 @@ subjects:
 ---
 apiVersion: v1
 data:
-  api-key: TUlTU0lORw==
+  api-key: PERBVEFET0dfQVBJX0tFWT4=
 kind: Secret
 metadata:
   labels:
-    app: datadog-datadog
-    chart: datadog-1.10.0
-    heritage: Tiller
+    app: datadog
     release: datadog
-  name: datadog-datadog
+  name: datadog
 type: Opaque
 ---
 apiVersion: v1
@@ -241,8 +234,6 @@ metadata:
     prometheus.io/scrape: "true"
   labels:
     app: kube-state-metrics
-    chart: kube-state-metrics-0.9.0
-    heritage: Tiller
     release: datadog
   name: datadog-kube-state-metrics
 spec:
@@ -304,4 +295,93 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 5
         resources: null
+      securityContext:
+        fsGroup: 65534
+        runAsUser: 65534
       serviceAccountName: datadog-kube-state-metrics
+---
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  labels:
+    app: datadog
+    release: datadog
+  name: datadog
+spec:
+  template:
+    metadata:
+      annotations:
+        checksum/autoconf-config: 38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed
+        checksum/checksd-config: 38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed
+        checksum/confd-config: 38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed
+      labels:
+        app: datadog
+      name: datadog
+    spec:
+      containers:
+      - env:
+        - name: DD_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: api-key
+              name: datadog
+        - name: DD_LOG_LEVEL
+          value: INFO
+        - name: KUBERNETES
+          value: "yes"
+        - name: DD_KUBERNETES_KUBELET_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: DD_HEALTH_PORT
+          value: "5555"
+        image: datadog/agent:6.10.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /health
+            port: 5555
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: datadog
+        ports:
+        - containerPort: 8125
+          name: dogstatsdport
+          protocol: UDP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 200m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: runtimesocket
+          readOnly: true
+        - mountPath: /host/proc
+          name: procdir
+          readOnly: true
+        - mountPath: /host/sys/fs/cgroup
+          name: cgroups
+          readOnly: true
+        - mountPath: /var/run/s6
+          name: s6-run
+      serviceAccountName: datadog
+      volumes:
+      - hostPath:
+          path: /var/run/docker.sock
+        name: runtimesocket
+      - hostPath:
+          path: /proc
+        name: procdir
+      - hostPath:
+          path: /sys/fs/cgroup
+        name: cgroups
+      - emptyDir: {}
+        name: s6-run
+  updateStrategy:
+    type: OnDelete
