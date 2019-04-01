@@ -1,4 +1,5 @@
 apiVersion: v1
+imagePullSecrets: []
 kind: ServiceAccount
 metadata:
   labels:
@@ -64,6 +65,13 @@ metadata:
     release: datadog
   name: datadog-kube-state-metrics
 rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - list
+  - watch
 - apiGroups:
   - batch
   resources:
@@ -142,6 +150,13 @@ rules:
   - list
   - watch
 - apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - list
+  - watch
+- apiGroups:
   - ""
   resources:
   - pods
@@ -166,6 +181,13 @@ rules:
   - ""
   resources:
   - resourcequotas
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
   verbs:
   - list
   - watch
@@ -266,6 +288,7 @@ spec:
     spec:
       containers:
       - args:
+        - --collectors=configmaps
         - --collectors=cronjobs
         - --collectors=daemonsets
         - --collectors=deployments
@@ -277,13 +300,15 @@ spec:
         - --collectors=nodes
         - --collectors=persistentvolumeclaims
         - --collectors=persistentvolumes
+        - --collectors=poddisruptionbudgets
         - --collectors=pods
         - --collectors=replicasets
         - --collectors=replicationcontrollers
         - --collectors=resourcequotas
+        - --collectors=secrets
         - --collectors=services
         - --collectors=statefulsets
-        image: quay.io/coreos/kube-state-metrics:v1.4.0
+        image: k8s.gcr.io/kube-state-metrics:v1.5.0
         imagePullPolicy: IfNotPresent
         name: kube-state-metrics
         ports:
