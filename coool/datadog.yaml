@@ -409,4 +409,4 @@ spec:
       - emptyDir: {}
         name: s6-run
   updateStrategy:
-    type: OnDelete
+    type: RollingUpdate
